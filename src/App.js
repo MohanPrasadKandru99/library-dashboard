@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.js
+import React from 'react';
+import { Container, Typography, Box } from '@mui/material';
+import { useAuth } from './Context/AuthContext';
+import LoginPage from './Components/LoginPage';
+import BookTable from './Components/BookTable';
+import styled from '@emotion/styled';
 
-function App() {
+const AppContainer = styled(Box)`
+  overflow: hidden;
+  position: relative;
+`;
+
+const App = () => {
+  const { isLoggedIn } = useAuth();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppContainer>
+      <Container>
+        <Typography variant="h4" gutterBottom>
+          Open Library Book Dashboard
+        </Typography>
+        {isLoggedIn ? <BookTable /> : <LoginPage />}
+      </Container>
+    </AppContainer>
   );
-}
+};
 
 export default App;
